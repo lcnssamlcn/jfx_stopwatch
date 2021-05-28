@@ -19,25 +19,79 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
+/**
+ * Stopwatch JavaFX application.
+ *
+ * @author lcn
+ */
 public class Main extends Application {
+    /**
+     * application name
+     */
     private static final String TITLE = "Stopwatch";
+    /**
+     * width of the stopwatch application
+     */
     private static final int WIDTH = 600;
+    /**
+     * height of the stopwatch application
+     */
     private static final int HEIGHT = 300;
+    /**
+     * default width for buttons
+     */
     private static final int BTN_WIDTH = 80;
+    /**
+     * default height for buttons
+     */
     private static final int BTN_HEIGHT = 80;
+    /**
+     * background color for the stopwatch GUI window
+     */
     private static final String BG_COLOR = "#E6E6FA";
+    /**
+     * default font for the stopwatch application
+     */
     private static final String FONT_FAMILY = "Arial";
 
+    /**
+     * root node containing {@link Main#display} and {@link Main#btnBar}
+     */
     private VBox root;
+    /**
+     * stopwatch <b>hh:mm:ss.SSS</b> GUI display
+     */
     private HBox display;
+    /**
+     * list of buttons to control the stopwatch
+     */
     private HBox btnBar;
+    /**
+     * <b>hh:mm:ss</b> text label
+     */
     private Label labelHhmmss;
+    /**
+     * <b>SSS</b> text label
+     */
     private Label labelSss;
+    /**
+     * stopwatch start/pause button
+     */
     private ToggleButton btnStartStop;
+    /**
+     * stopwatch reset button
+     */
     private Button btnReset;
 
+    /**
+     * stopwatch inner workings
+     */
     private StopwatchController sc;
 
+    /**
+     * initialize the stopwatch GUI window and render it to the screen.
+     * @param stage stopwatch window
+     */
     @Override
     public void start(Stage stage) {
         this.root = new VBox(10);
@@ -104,6 +158,11 @@ public class Main extends Application {
         stage.show();
     }
 
+    /**
+     * factory method to create <i>ToggleButton</i>.
+     * @param  cssPath stylesheet for <i>ToggleButton</i>
+     * @return <i>ToggleButton</i>
+     */
     private ToggleButton createToggleBtn(String cssPath) {
         ToggleButton btn = new ToggleButton();
         btn.getStylesheets().add(this.getClass().getResource(cssPath).toExternalForm());
@@ -113,6 +172,11 @@ public class Main extends Application {
         return btn;
     }
 
+    /**
+     * factory method to create image button.
+     * @param  imgPath image for the image button
+     * @return image button
+     */
     private Button createImgBtn(String imgPath) {
         Image img = new Image(imgPath);
         ImageView iv = new ImageView(img);

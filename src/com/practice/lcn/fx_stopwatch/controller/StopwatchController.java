@@ -8,37 +8,88 @@ import org.apache.commons.lang.time.StopWatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Stopwatch inner workings.
+ *
+ * @author lcn
+ */
 public class StopwatchController {
     private static Logger logger = LogManager.getLogger(StopwatchController.class.getName());
 
+    /**
+     * stopwatch state
+     */
     public enum STATE {
+        /**
+         * indicating that stopwatch is currently running
+         */
         RUNNING,
+        /**
+         * indicating that stopwatch is paused temporarily
+         */
         PAUSE,
+        /**
+         * indicating that stopwatch is reset
+         */
         STOP
     };
+    /**
+     * stopwatch <b>hh:mm:ss.SSS</b> GUI display's refresh interval (in ms)
+     */
     private static final long UPDATE_DISPLAY_INTERVAL = 50;
+    /**
+     * JavaFX task to update the stopwatch GUI display
+     * @return JavaFX task
+     */
     private Runnable taskUpdateDisplay = new Runnable() {
         @Override
         public void run() {
             updateDisplay();
         }
     };
+    /**
+     * initial <b>hh:mm:ss</b> in stopwatch GUI display
+     */
     public static final String INIT_HHMMSS = "00:00:00";
+    /**
+     * initial <b>SSS</b> in stopwatch GUI display
+     */
     public static final String INIT_SSS = "000";
 
+    /**
+     * <b>hh:mm:ss</b> label in stopwatch GUI display
+     */
     private Label labelHhmmss;
+    /**
+     * <b>SSS</b> label in stopwatch GUI display
+     */
     private Label labelSss;
 
+    /**
+     * stopwatch's current state
+     */
     private volatile STATE state;
+    /**
+     * internal stopwatch
+     */
     private StopWatch sw;
+    /**
+     * stopwatch main thread
+     */
     private Thread tStopwatch;
 
+    /**
+     * initialization
+     */
     public StopwatchController() {
         this.tStopwatch = null;
         this.state = STATE.STOP;
         this.sw = new StopWatch();
     }
 
+    /**
+     * start the stopwatch. Meanwhile, stopwatch GUI display will be updated.
+     */
     public void start() {
         this.tStopwatch = new Thread(new Runnable() {
             @Override
@@ -70,10 +121,16 @@ public class StopwatchController {
         this.tStopwatch.start();
     }
 
+    /**
+     * resume the stopwatch after paused.
+     */
     public void resume() {
         this.start();
     }
 
+    /**
+     * pause the stopwatch temporarily.
+     */
     public void pause() {
         this.state = STATE.PAUSE;
         try {
@@ -85,6 +142,9 @@ public class StopwatchController {
         this.tStopwatch = null;
     }
 
+    /**
+     * reset the stopwatch
+     */
     public void reset() {
         if (this.state == STATE.RUNNING) {
             this.sw.suspend();
@@ -110,6 +170,9 @@ public class StopwatchController {
         this.labelSss.setText(StopwatchController.INIT_SSS);
     }
 
+    /**
+     * update the stopwatch GUI display
+     */
     private void updateDisplay() {
         long elapsedTime = this.sw.getTime();
 
@@ -145,22 +208,18 @@ public class StopwatchController {
         this.labelSss.setText(sss);
     }
 
-	/**
-	* Sets new value of labelHhmmss
-	* @param labelHhmmss hhmmss display
-	*/
 	public void setLabelHhmmss(Label labelHhmmss) {
 		this.labelHhmmss = labelHhmmss;
 	}
 
-	/**
-	* Sets new value of labelSss
-	* @param labelSss sss display
-	*/
 	public void setLabelSss(Label labelSss) {
 		this.labelSss = labelSss;
 	}
 
+    /**
+     * get stopwatch's current state
+     * @return stopwatch's current state
+     */
     public STATE getState() {
         return this.state;
     }
