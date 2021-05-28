@@ -17,6 +17,8 @@ This program is compatible with
 - commons-lang-2.6.jar
 - log4j-api-2.12.1.jar
 - log4j-core-2.12.1.jar
+- g++
+- make
 
 ## Mac OS X Environment
 
@@ -32,17 +34,23 @@ This program is compatible with
 1. create a `lib` folder under `${PROJECT_DIR}`
 2. download all above-mentioned libraries depending on your OS
 3. put all downloaded libraries to `${PROJECT_DIR}/lib`
-4. execute
+4. import this project to eclipse
+5. use eclipse to compile this project
+6. execute
 ```bat
-run_win.bat
+compile.bat
 ```
+
+The executable `${PROJECT_DIR}/stopwatch-1.0.exe` should be generated.
 
 ## Installation steps (Mac OS X)
 
 1. create a `lib` folder under `${PROJECT_DIR}`
 2. download all above-mentioned libraries depending on your OS
 3. put all downloaded libraries to `${PROJECT_DIR}/lib`
-4. execute
+4. import this project to eclipse
+5. use eclipse to compile this project
+6. execute
 ```sh
 run_osx.sh
 ```

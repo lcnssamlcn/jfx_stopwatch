@@ -11,7 +11,9 @@ misc
 
 # Package Files
 *.jar
+*.exe
 
 # Compiled class file
 bin
 *.class
+bin_cpp
