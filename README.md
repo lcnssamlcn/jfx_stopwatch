@@ -41,7 +41,7 @@ This program is compatible with
 compile.bat
 ```
 
-The executable `${PROJECT_DIR}/stopwatch-1.0.exe` should be generated.
+The executable `${PROJECT_DIR}/stopwatch-${version}.exe` should be generated.
 
 ## Installation steps (Mac OS X)
 
@@ -50,10 +50,8 @@ The executable `${PROJECT_DIR}/stopwatch-1.0.exe` should be generated.
 3. put all downloaded libraries to `${PROJECT_DIR}/lib`
 4. import this project to eclipse
 5. use eclipse to compile this project
-6. execute
-```sh
-run_osx.sh
-```
+6. double click `${PROJECT_DIR}/make_desktop_shortcut_osx.command` to create desktop shortcut for the stopwatch application
+7. double click `${DESKTOP_DIR}/stopwatch-${version}.command` to launch the stopwatch application
 
 ## Screenshots
 
