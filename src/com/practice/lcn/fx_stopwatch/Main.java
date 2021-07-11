@@ -19,6 +19,11 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
+import java.awt.Taskbar;
+import java.awt.Toolkit;
+
+import java.net.URL;
+
 /**
  * Stopwatch JavaFX application.
  *
@@ -53,6 +58,10 @@ public class Main extends Application {
      * default font for the stopwatch application
      */
     private static final String FONT_FAMILY = "Arial";
+    /**
+     * application icon file path (in JAR)
+     */
+    private static final String APPL_ICON_PATH = "/img/ico_timer.png";
 
     /**
      * root node containing {@link Main#display} and {@link Main#btnBar}
@@ -154,6 +163,7 @@ public class Main extends Application {
         this.root.setStyle(String.format("-fx-background-color: %s;", Main.BG_COLOR));
         Scene scene = new Scene(this.root, Main.WIDTH, Main.HEIGHT, Color.web(Main.BG_COLOR));
         stage.setScene(scene);
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream(Main.APPL_ICON_PATH)));
 
         stage.show();
     }
@@ -189,7 +199,30 @@ public class Main extends Application {
         return imgBtn;
     }
 
+    /**
+     * initialize dock application icon in Mac OS X
+     */
+    private static void initOsxDockIcon() {
+        final Toolkit dt = Toolkit.getDefaultToolkit();
+        final URL urlApplIcon = Main.class.getResource(Main.APPL_ICON_PATH);
+        final java.awt.Image imgApplIcon = dt.getImage(urlApplIcon);
+
+        final Taskbar taskbar = Taskbar.getTaskbar();
+
+        try {
+            taskbar.setIconImage(imgApplIcon);
+        }
+        catch (UnsupportedOperationException|SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
+        String os = System.getProperty("os.name");
+        if (os.equals("Mac OS X")) {
+            Main.initOsxDockIcon();
+        }
+
         Application.launch(args);
     }
 }

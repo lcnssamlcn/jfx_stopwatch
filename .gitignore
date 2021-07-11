@@ -8,6 +8,7 @@ misc
 # Junk
 .DS_Store
 *.swp
+Thumbs.db
 
 # Package Files
 *.jar
